@@ -80,8 +80,12 @@ class ScriptsSpider(scrapy.Spider):
         #                       923-924 In Barbados
         #                       1017-1018 Last One
 
-        
-        rawlines = response.css('p *::text').getall()
+        if ep_num == '911':
+            rawlines = response.css('html *::text').getall()
+        elif ep_num == '915':
+            rawlines = response.css('body *::text').getall()
+        else:
+            rawlines = response.css('p *::text').getall()
 
         
             
