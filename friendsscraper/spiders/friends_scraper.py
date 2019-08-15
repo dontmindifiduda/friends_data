@@ -13,7 +13,6 @@ class ScriptsSpider(scrapy.Spider):
 
     start_urls = ['https://fangj.github.io/friends/']
 
-
     def parse(self, response):
         eps = response.css('li a::attr(href)').extract() 
 
@@ -24,7 +23,6 @@ class ScriptsSpider(scrapy.Spider):
         for ep in eps:   
             yield scrapy.Request(response.urljoin(ep), callback=self.parse_script)
                    
-
     def parse_script(self, response):
         
         # Extract episode title and number 
@@ -107,20 +105,3 @@ class ScriptsSpider(scrapy.Spider):
             newFileWriter.writerow([title])
             for i in rawlines:
                 newFileWriter.writerow([i])
-
-            #newFileWriter.writerow(([response.url], response.css('h1::text').getall()[-1]))
-
-
-
-        #page = response.url.split("/")[-2]
-        
-        #filename = 'scripts-%s.html' % page
-        #with open(filename, 'wb') as f:
-            #f.write(response.body)
-
-            # for href in response.css('a::attr(href)').extract():
-            #   resp = scrapy.Request(response.urljoin(href), self.parse)
-            #   print(resp)
-            #   filename = start_urls[0] + href
-            #   with open(filename, 'wb') as f:
-            #       f.write(resp.body)
